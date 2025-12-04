@@ -1,7 +1,0 @@
-import { create } from "zustand";
-
-export const useAuthStore = create<{ token: string | null; setToken: (t: string | null) => void }>((set) => ({
-  token: null,
-  setToken: (t) => set({ token: t }),
-}));
-
