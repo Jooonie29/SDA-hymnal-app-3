@@ -1,0 +1,30 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SDA Hymnal API",
+    "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "paths": {
+    "/health": { "get": { "summary": "Health", "responses": { "200": { "description": "OK" } } } },
+    "/auth/register": { "post": { "summary": "Register", "responses": { "200": { "description": "Token" } } } },
+    "/auth/login": { "post": { "summary": "Login", "responses": { "200": { "description": "Token" } } } },
+    "/songs/{id}": { "get": { "summary": "Get song", "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "Song" } } } },
+    "/songs": { "get": { "summary": "Get by number", "parameters": [{ "name": "number", "in": "query", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "Song" } } } },
+    "/search": { "get": { "summary": "Search", "parameters": [{ "name": "q", "in": "query", "required": true, "schema": { "type": "string" } }, { "name": "type", "in": "query", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Results" } } } },
+    "/toc": { "get": { "summary": "Table of contents", "responses": { "200": { "description": "List" } } } },
+    "/index": { "get": { "summary": "Alphabetical index", "responses": { "200": { "description": "List" } } } },
+    "/favorites": { "get": { "summary": "List favorites", "security": [{ "BearerAuth": [] }], "responses": { "200": { "description": "List" } } }, "post": { "summary": "Add favorite", "security": [{ "BearerAuth": [] }], "responses": { "200": { "description": "OK" } } } },
+    "/favorites/{songId}": { "delete": { "summary": "Remove favorite", "security": [{ "BearerAuth": [] }], "parameters": [{ "name": "songId", "in": "path", "required": true, "schema": { "type": "integer" } }], "responses": { "200": { "description": "OK" } } } },
+    "/history": { "get": { "summary": "List history", "security": [{ "BearerAuth": [] }], "responses": { "200": { "description": "List" } } }, "post": { "summary": "Add history", "security": [{ "BearerAuth": [] }], "responses": { "200": { "description": "OK" } } } },
+    "/sync/local": { "get": { "summary": "Offline sync", "security": [{ "BearerAuth": [] }], "responses": { "200": { "description": "Delta" } } } }
+  }
+}
